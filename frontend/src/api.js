@@ -53,6 +53,27 @@ export const getAdminMe = () => apiFetch('/admin/me');
 export const updateProfile = (data) =>
   apiFetch('/admin/profile', { method: 'PUT', body: JSON.stringify(data) });
 
+export const uploadAvatar = (file) => {
+  const token = localStorage.getItem('admin_token');
+  const formData = new FormData();
+  formData.append('avatar', file);
+  // No Content-Type header — browser sets it with the correct multipart boundary
+  return fetch(`${API_BASE}/admin/profile/avatar`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: formData,
+  }).then(async (res) => {
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ message: res.statusText }));
+      throw new Error(err.message || 'Upload failed');
+    }
+    return res.json();
+  });
+};
+
 export const createSkill = (data) =>
   apiFetch('/admin/skills', { method: 'POST', body: JSON.stringify(data) });
 

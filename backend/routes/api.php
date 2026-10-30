@@ -43,6 +43,7 @@ Route::prefix('v1/admin')->middleware('auth:sanctum')->group(function () {
 
     // Profile
     Route::put('/profile', [ProfileController::class, 'update']);
+    Route::post('/profile/avatar', [ProfileController::class, 'uploadAvatar']);
 
     // Skills CRUD
     Route::post('/skills', [SkillController::class, 'store']);

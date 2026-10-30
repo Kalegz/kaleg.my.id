@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Save, CheckCircle } from 'lucide-react';
-import { getProfile, updateProfile } from '../../api';
+import { useEffect, useState, useRef } from 'react';
+import { Save, CheckCircle, Upload, X } from 'lucide-react';
+import { getProfile, updateProfile, uploadAvatar } from '../../api';
 
 function useIsMobile(bp = 640) {
   const [mobile, setMobile] = useState(window.innerWidth < bp);
@@ -15,6 +15,10 @@ function useIsMobile(bp = 640) {
 export default function AdminProfile() {
   const isMobile = useIsMobile();
   const cols = isMobile ? '1fr' : '1fr 1fr';
+  const fileInputRef = useRef(null);
+  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
     name: '', title: '', tagline: '', bio: '', email: '',
     location: '', avatar_url: '', github_url: '', linkedin_url: '',
@@ -37,14 +41,41 @@ export default function AdminProfile() {
     setSaving(true);
     setSaved(false);
     try {
-      await updateProfile(form);
+      // Upload avatar first if a new file was selected
+      if (avatarFile) {
+        setUploading(true);
+        const { avatar_url } = await uploadAvatar(avatarFile);
+        setUploading(false);
+        setAvatarFile(null);
+        setAvatarPreview(null);
+        setForm(f => ({ ...f, avatar_url }));
+        // Save the rest of the form with the new URL
+        await updateProfile({ ...form, avatar_url });
+      } else {
+        await updateProfile(form);
+      }
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
+      setUploading(false);
       alert(err.message);
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setAvatarFile(file);
+    setAvatarPreview(URL.createObjectURL(file));
+  };
+
+  const clearAvatarSelection = () => {
+    setAvatarFile(null);
+    if (avatarPreview) URL.revokeObjectURL(avatarPreview);
+    setAvatarPreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const field = (key, label, type = 'text', props = {}) => (
@@ -126,7 +157,76 @@ export default function AdminProfile() {
             <h3 style={{ fontSize: '1rem', marginBottom: '1.25rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border)' }}>
               Links & Social
             </h3>
-            {field('avatar_url', 'Avatar URL', 'url', { placeholder: 'https://...' })}
+
+            {/* Avatar Upload */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+                Avatar
+              </label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                {/* Preview */}
+                <div style={{
+                  width: 72, height: 72, borderRadius: '50%',
+                  background: 'var(--bg-secondary)',
+                  border: '2px solid var(--border)',
+                  overflow: 'hidden', flexShrink: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  {(avatarPreview || form.avatar_url) ? (
+                    <img
+                      src={avatarPreview || form.avatar_url}
+                      alt="Avatar preview"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={e => { e.target.style.display = 'none'; }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: '1.75rem', color: 'var(--text-muted)' }}>👤</span>
+                  )}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleAvatarChange}
+                    style={{ display: 'none' }}
+                    id="avatar-upload"
+                  />
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <button
+                      type="button"
+                      className="btn btn-outline"
+                      onClick={() => fileInputRef.current?.click()}
+                      style={{ fontSize: '0.825rem', gap: '0.4rem' }}
+                    >
+                      <Upload size={14} /> {form.avatar_url ? 'Change Photo' : 'Upload Photo'}
+                    </button>
+                    {avatarFile && (
+                      <button
+                        type="button"
+                        onClick={clearAvatarSelection}
+                        style={{
+                          background: 'none', border: '1px solid var(--border)',
+                          borderRadius: 'var(--radius-md)', color: 'var(--text-muted)',
+                          cursor: 'pointer', fontSize: '0.825rem',
+                          display: 'flex', alignItems: 'center', gap: '0.3rem',
+                          padding: '0.5rem 0.875rem',
+                          fontFamily: 'var(--font-sans)',
+                        }}
+                      >
+                        <X size={13} /> Cancel
+                      </button>
+                    )}
+                  </div>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                    {avatarFile
+                      ? `Selected: ${avatarFile.name}`
+                      : 'JPG, PNG or WebP · max 2MB'}
+                  </span>
+                </div>
+              </div>
+            </div>
             {field('resume_url', 'Resume URL', 'url', { placeholder: 'https://...' })}
             <div style={{ display: 'grid', gridTemplateColumns: cols, gap: '0 1.25rem' }}>
               {field('github_url', 'GitHub URL', 'url', { placeholder: 'https://github.com/...' })}
@@ -140,10 +240,11 @@ export default function AdminProfile() {
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={saving}
-              style={{ opacity: saving ? 0.7 : 1 }}
+              disabled={saving || uploading}
+              style={{ opacity: (saving || uploading) ? 0.7 : 1 }}
             >
-              <Save size={16} /> {saving ? 'Saving...' : 'Save Changes'}
+              <Save size={16} />
+              {uploading ? 'Uploading avatar...' : saving ? 'Saving...' : 'Save Changes'}
             </button>
             {saved && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--teal)', fontSize: '0.875rem' }}>

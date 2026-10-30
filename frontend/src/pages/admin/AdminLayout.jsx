@@ -77,7 +77,7 @@ export default function AdminLayout() {
   const showLabel = sidebarExpanded; // only show text when expanded
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-primary)' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#080809' }}>
 
       {/* ── Mobile overlay backdrop ──────────────────────────────── */}
       {isMobile && mobileOpen && (
@@ -85,8 +85,7 @@ export default function AdminLayout() {
           onClick={() => setMobileOpen(false)}
           style={{
             position: 'fixed', inset: 0, zIndex: 99,
-            background: 'rgba(0,0,0,0.55)',
-            backdropFilter: 'blur(2px)',
+            background: 'rgba(0,0,0,0.82)',
           }}
         />
       )}
@@ -95,8 +94,8 @@ export default function AdminLayout() {
       <aside style={{
         width: SIDEBAR_WIDTH,
         minHeight: '100vh',
-        background: 'var(--bg-secondary)',
-        borderRight: '1px solid var(--border)',
+        background: '#0d0d10',
+        borderRight: '1px solid rgba(255,255,255,0.07)',
         display: 'flex',
         flexDirection: 'column',
         position: 'fixed',
@@ -113,7 +112,7 @@ export default function AdminLayout() {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 1rem',
-          borderBottom: '1px solid var(--border)',
+          borderBottom: '1px solid rgba(255,255,255,0.07)',
           flexShrink: 0,
         }}>
           {showLabel ? (
@@ -121,17 +120,17 @@ export default function AdminLayout() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: 8,
-                  background: 'var(--accent)',
+                  background: '#e8ff47',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 800, fontSize: '0.9rem', color: 'white',
+                  fontWeight: 800, fontSize: '0.9rem', color: '#000',
                   flexShrink: 0,
                 }}>K</div>
-                <span style={{ fontWeight: 700, fontSize: '0.95rem', whiteSpace: 'nowrap' }}>Admin Panel</span>
+                <span style={{ fontWeight: 700, fontSize: '0.95rem', whiteSpace: 'nowrap', color: '#f5f5f0' }}>Admin Panel</span>
               </div>
               <button
                 onClick={toggleSidebar}
                 aria-label="Close sidebar"
-                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '0.25rem' }}
+                style={{ background: 'none', border: 'none', color: '#888882', cursor: 'pointer', padding: '0.25rem' }}
               >
                 <X size={18} />
               </button>
@@ -139,9 +138,9 @@ export default function AdminLayout() {
           ) : (
             <div style={{
               width: 32, height: 32, borderRadius: 8,
-              background: 'var(--accent)',
+              background: '#e8ff47',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 800, fontSize: '0.9rem', color: 'white',
+              fontWeight: 800, fontSize: '0.9rem', color: '#000',
               margin: '0 auto',
             }}>K</div>
           )}
@@ -155,7 +154,7 @@ export default function AdminLayout() {
               aria-label="Expand sidebar"
               style={{
                 width: '100%', padding: '0.625rem', borderRadius: 8,
-                background: 'none', border: 'none', color: 'var(--text-muted)',
+                background: 'none', border: 'none', color: '#888882',
                 cursor: 'pointer', display: 'flex', justifyContent: 'center',
                 marginBottom: '0.5rem',
               }}
@@ -177,8 +176,8 @@ export default function AdminLayout() {
                   padding: showLabel ? '0.625rem 0.875rem' : '0.625rem',
                   borderRadius: 8,
                   textDecoration: 'none',
-                  background: isActive ? 'var(--accent-glow)' : 'transparent',
-                  color: isActive ? 'var(--accent-light)' : 'var(--text-secondary)',
+                  background: isActive ? 'rgba(232,255,71,0.12)' : 'transparent',
+                  color: isActive ? '#e8ff47' : '#888882',
                   fontWeight: isActive ? 600 : 400,
                   fontSize: '0.875rem',
                   transition: 'all 0.15s',
@@ -197,7 +196,7 @@ export default function AdminLayout() {
         {/* Sidebar Footer */}
         <div style={{
           padding: '0.75rem 0.5rem',
-          borderTop: '1px solid var(--border)',
+          borderTop: '1px solid rgba(255,255,255,0.07)',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.5rem',
@@ -206,14 +205,14 @@ export default function AdminLayout() {
             <div style={{
               padding: '0.75rem',
               borderRadius: 8,
-              background: 'var(--bg-glass)',
-              border: '1px solid var(--border)',
+              background: '#121215',
+              border: '1px solid rgba(255,255,255,0.07)',
               marginBottom: '0.25rem',
             }}>
-              <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
+              <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#f5f5f0', marginBottom: '0.2rem' }}>
                 {user.name}
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <div style={{ fontSize: '0.75rem', color: '#888882', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {user.email}
               </div>
             </div>
@@ -227,7 +226,7 @@ export default function AdminLayout() {
               display: 'flex', alignItems: 'center', gap: '0.75rem',
               padding: showLabel ? '0.625rem 0.875rem' : '0.625rem',
               borderRadius: 8, textDecoration: 'none',
-              color: 'var(--text-muted)', fontSize: '0.875rem',
+              color: '#888882', fontSize: '0.875rem',
               transition: 'all 0.15s',
               justifyContent: showLabel ? 'flex-start' : 'center',
             }}
@@ -244,10 +243,10 @@ export default function AdminLayout() {
               padding: showLabel ? '0.625rem 0.875rem' : '0.625rem',
               borderRadius: 8,
               background: 'none', border: 'none',
-              color: '#ff6b6b', cursor: 'pointer',
+              color: '#ff4757', cursor: 'pointer',
               fontSize: '0.875rem',
               transition: 'all 0.15s',
-              fontFamily: 'var(--font-sans)',
+              fontFamily: 'var(--font)',
               width: '100%',
               justifyContent: showLabel ? 'flex-start' : 'center',
             }}
@@ -261,14 +260,13 @@ export default function AdminLayout() {
       {/* ── Main Content ─────────────────────────────────────────── */}
       <main style={{
         flex: 1,
-        // On mobile: no margin (sidebar is off-canvas overlay)
-        // On desktop: push content by sidebar width
         marginLeft: isMobile ? 0 : SIDEBAR_WIDTH,
         transition: 'margin-left 0.3s ease',
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         minWidth: 0,
+        background: '#080809',
       }}>
         {/* ── Mobile top bar ──────────────────────────────────────── */}
         {isMobile && (
@@ -278,8 +276,8 @@ export default function AdminLayout() {
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '0 1rem',
-            background: 'var(--bg-secondary)',
-            borderBottom: '1px solid var(--border)',
+            background: '#0d0d10',
+            borderBottom: '1px solid rgba(255,255,255,0.07)',
             position: 'sticky',
             top: 0,
             zIndex: 50,
@@ -290,7 +288,7 @@ export default function AdminLayout() {
               aria-label="Open menu"
               style={{
                 background: 'none', border: 'none',
-                color: 'var(--text-primary)', cursor: 'pointer',
+                color: '#f5f5f0', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 padding: '0.5rem',
               }}
@@ -300,13 +298,13 @@ export default function AdminLayout() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <div style={{
                 width: 28, height: 28, borderRadius: 7,
-                background: 'var(--accent)',
+                background: '#e8ff47',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 800, fontSize: '0.8rem', color: 'white',
+                fontWeight: 800, fontSize: '0.8rem', color: '#000',
               }}>K</div>
-              <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>Admin Panel</span>
+              <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#f5f5f0' }}>Admin Panel</span>
             </div>
-            <div style={{ width: 38 }} /> {/* spacer to center the title */}
+            <div style={{ width: 38 }} />
           </div>
         )}
 

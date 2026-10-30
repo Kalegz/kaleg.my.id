@@ -121,7 +121,7 @@ export default function Skills() {
               {filteredSkills.map(([category, skills]) => {
                 const colorInfo = CATEGORY_COLORS[category] || { color: 'var(--accent)', bg: 'var(--accent-glow)' };
                 return (
-                  <div key={category} className="card">
+                  <div key={category} className="card" style={{ marginBottom: '1.5rem' }}>
                     {/* Category Header */}
                     <div style={{
                       display: 'flex',

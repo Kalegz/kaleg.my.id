@@ -217,7 +217,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); }
 
 /* ─── Skill Bar ──────────────────────────────────────────────────────────── */
 .skill-bar {
-  height: 4px;
+  height: 6px;
   background: var(--bg-2);
   border-radius: 99px;
   overflow: hidden;

@@ -59,14 +59,6 @@ npm run dev
 - `CRUD /api/v1/admin/experiences`
 - `CRUD /api/v1/admin/posts`
 
-## 🔐 Default Admin
-
-After seeding:
-- Email: `admin@kaleg.my.id`
-- Password: `password`
-
-> ⚠️ Change the password after first login!
-
 ## 🏗️ Deployment
 
 ### Backend (Laravel)

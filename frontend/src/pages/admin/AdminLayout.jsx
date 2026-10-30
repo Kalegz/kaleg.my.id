@@ -120,9 +120,9 @@ export default function AdminLayout() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: 8,
-                  background: '#e8ff47',
+                  background: '#c44dff',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 800, fontSize: '0.9rem', color: '#000',
+                  fontWeight: 800, fontSize: '0.9rem', color: '#fff',
                   flexShrink: 0,
                 }}>K</div>
                 <span style={{ fontWeight: 700, fontSize: '0.95rem', whiteSpace: 'nowrap', color: '#f5f5f0' }}>Admin Panel</span>
@@ -138,9 +138,9 @@ export default function AdminLayout() {
           ) : (
             <div style={{
               width: 32, height: 32, borderRadius: 8,
-              background: '#e8ff47',
+              background: '#c44dff',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 800, fontSize: '0.9rem', color: '#000',
+              fontWeight: 800, fontSize: '0.9rem', color: '#fff',
               margin: '0 auto',
             }}>K</div>
           )}
@@ -176,8 +176,8 @@ export default function AdminLayout() {
                   padding: showLabel ? '0.625rem 0.875rem' : '0.625rem',
                   borderRadius: 8,
                   textDecoration: 'none',
-                  background: isActive ? 'rgba(232,255,71,0.12)' : 'transparent',
-                  color: isActive ? '#e8ff47' : '#888882',
+                  background: isActive ? 'rgba(196,77,255,0.12)' : 'transparent',
+                  color: isActive ? '#c44dff' : '#888882',
                   fontWeight: isActive ? 600 : 400,
                   fontSize: '0.875rem',
                   transition: 'all 0.15s',
@@ -298,9 +298,9 @@ export default function AdminLayout() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <div style={{
                 width: 28, height: 28, borderRadius: 7,
-                background: '#e8ff47',
+                background: '#c44dff',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 800, fontSize: '0.8rem', color: '#000',
+                fontWeight: 800, fontSize: '0.8rem', color: '#fff',
               }}>K</div>
               <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#f5f5f0' }}>Admin Panel</span>
             </div>

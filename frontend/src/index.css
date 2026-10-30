@@ -12,13 +12,13 @@
   --line-2:    rgba(255,255,255,0.12);
 
   /* Palette */
-  --p:         #e8ff47;   /* acid yellow — primary accent */
-  --p-dim:     rgba(232,255,71,0.12);
-  --p-glow:    rgba(232,255,71,0.25);
-  --p-dark:    #b8cc1a;
+  --p:         #c44dff;   /* violet purple-pink — primary accent */
+  --p-dim:     rgba(196,77,255,0.12);
+  --p-glow:    rgba(196,77,255,0.28);
+  --p-dark:    #9a1fe0;
 
-  --p2:        #ff4757;   /* hot red — secondary */
-  --p2-dim:    rgba(255,71,87,0.1);
+  --p2:        #e066c8;   /* soft pink — secondary */
+  --p2-dim:    rgba(224,102,200,0.12);
 
   --p3:        #7c3aed;   /* deep purple */
   --p3-dim:    rgba(124,58,237,0.15);
@@ -57,7 +57,7 @@ body {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--p); border-radius: 2px; }
-::selection { background: var(--p); color: #000; }
+::selection { background: var(--p); color: #fff; }
 
 a { color: inherit; text-decoration: none; }
 p { color: var(--txt-2); }
@@ -92,7 +92,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); }
 }
 .mark-bg {
   background: var(--p);
-  color: #000;
+  color: #fff;
   padding: 0 0.25em;
   border-radius: 2px;
 }
@@ -118,7 +118,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); }
 .card-lift:hover {
   transform: translateY(-4px);
   border-color: var(--p);
-  box-shadow: 0 12px 40px rgba(232,255,71,0.08);
+  box-shadow: 0 12px 40px rgba(196,77,255,0.12);
 }
 
 /* ─── Buttons ────────────────────────────────────────────────────────────── */
@@ -135,13 +135,13 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); }
 
 .btn-primary {
   background: var(--p);
-  color: #000;
+  color: #fff;
   font-weight: 700;
 }
 .btn-primary:hover {
-  background: #fff;
+  background: var(--p-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(232,255,71,0.3);
+  box-shadow: 0 8px 24px rgba(196,77,255,0.4);
 }
 
 .btn-outline {
@@ -187,7 +187,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); }
 }
 .tag-p    { background: var(--p-dim); border-color: var(--p); color: var(--p); }
 .tag-red  { background: var(--p2-dim); border-color: var(--p2); color: var(--p2); }
-.tag-pur  { background: var(--p3-dim); border-color: var(--p3); color: #a78bfa; }
+.tag-pur  { background: var(--p3-dim); border-color: var(--p3); color: #c084fc; }
 
 /* ─── Labels (section eyebrow) ───────────────────────────────────────────── */
 .eyebrow {
@@ -242,7 +242,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); }
   position: absolute; left: -2.12rem; top: 4px;
   width: 10px; height: 10px; border-radius: 50%;
   background: var(--p);
-  box-shadow: 0 0 12px var(--p-glow);
+  box-shadow: 0 0 12px rgba(196,77,255,0.6);
   border: 2px solid var(--bg);
 }
 

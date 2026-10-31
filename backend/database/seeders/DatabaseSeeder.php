@@ -14,12 +14,15 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admin User
+        // Admin 
+        $adminEmail = env('ADMIN_EMAIL', 'admin@kaleg.my.id');
+        $adminPassword = env('ADMIN_INITIAL_PASSWORD', 'secret');
+
         AdminUser::firstOrCreate(
-            ['email' => 'giselok1215@gmail.com'],
+            ['email' => $adminEmail],
             [
                 'name' => 'Kaleg Admin',
-                'password' => Hash::make(env('ADMIN_INITIAL_PASSWORD', 'kalegz1215')),
+                'password' => Hash::make($adminPassword),
             ]
         );
 

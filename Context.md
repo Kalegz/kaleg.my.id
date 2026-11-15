@@ -19,6 +19,16 @@
   - Files ignored: `.env`, local SQLite artifacts, `/vendor`, `/node_modules`, `/storage`, build artifacts.
 
 ## 3. Changelog & Modifications
+### 15 November 2026 15:05 WIB
+- **Feature (Upload Image & Multi-Mode Cover)**:
+  - Ditambahkan dukungan file upload gambar cover post ke disk storage Laravel (`public/posts`) pada [PostController.php](file:///c:/Users/Kaleg/Desktop/K/kaleg.my.id/backend/app/Http/Controllers/Api/PostController.php) via endpoint `/api/v1/admin/posts/upload-cover` serta dukungan multipart langsung pada `store()` dan `update()`.
+  - Mempertahankan backward compatibility: input string URL lama tetap didukung penuh sebagai opsi bergantian (*tab switcher* Upload File vs Image URL) di [AdminPosts.jsx](file:///c:/Users/Kaleg/Desktop/K/kaleg.my.id/frontend/src/pages/admin/AdminPosts.jsx).
+  - Skema database tabel `posts` tetap terjaga tanpa modifikasi (kolom `cover_image` menyimpan URL hasil simpan storage atau URL eksternal).
+- **Bugfix (Form Edit Post Empty State Hydration)**:
+  - Diperbaiki masalah data post tidak terisi ke form saat tombol "Edit" diklik.
+  - Pada backend, method `adminIndex()` diperluas untuk mengembalikan data post lengkap, dan endpoint admin show `GET /api/v1/admin/posts/{post}` ditambahkan pada [api.php](file:///c:/Users/Kaleg/Desktop/K/kaleg.my.id/backend/routes/api.php) serta `showAdmin()` pada [PostController.php](file:///c:/Users/Kaleg/Desktop/K/kaleg.my.id/backend/app/Http/Controllers/Api/PostController.php).
+  - Pada frontend, [api.js](file:///c:/Users/Kaleg/Desktop/K/kaleg.my.id/frontend/src/api.js) menambahkan helper `getAdminPost()` dan `uploadPostCover()`. Di [AdminPosts.jsx](file:///c:/Users/Kaleg/Desktop/K/kaleg.my.id/frontend/src/pages/admin/AdminPosts.jsx), fungsi `handleEdit` melakukan hidrasi data langsung sekaligus fetching asynchronous data penuh ke state form (`editing`).
+
 ### 31 Oktober 2026 23:55 WIB
 - **Drafting Context.md**: Initial architectural context and documentation setup.
 - **Security Audit (DatabaseSeeder.php)**:

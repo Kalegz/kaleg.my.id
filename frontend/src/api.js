@@ -94,6 +94,8 @@ export const deleteExperience = (id) =>
 
 export const getAdminPosts = () => apiFetch('/admin/posts');
 
+export const getAdminPost = (id) => apiFetch(`/admin/posts/${id}`);
+
 export const createPost = (data) =>
   apiFetch('/admin/posts', { method: 'POST', body: JSON.stringify(data) });
 
@@ -102,3 +104,23 @@ export const updatePost = (id, data) =>
 
 export const deletePost = (id) =>
   apiFetch(`/admin/posts/${id}`, { method: 'DELETE' });
+
+export const uploadPostCover = (file) => {
+  const token = localStorage.getItem('admin_token');
+  const formData = new FormData();
+  formData.append('cover_image', file);
+  return fetch(`${API_BASE}/admin/posts/upload-cover`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: formData,
+  }).then(async (res) => {
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ message: res.statusText }));
+      throw new Error(err.message || 'Upload failed');
+    }
+    return res.json();
+  });
+};

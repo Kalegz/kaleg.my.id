@@ -57,7 +57,9 @@ Route::prefix('v1/admin')->middleware('auth:sanctum')->group(function () {
 
     // Blog Posts CRUD
     Route::get('/posts', [PostController::class, 'adminIndex']);
+    Route::get('/posts/{post}', [PostController::class, 'showAdmin']);
     Route::post('/posts', [PostController::class, 'store']);
+    Route::post('/posts/upload-cover', [PostController::class, 'uploadCover']);
     Route::put('/posts/{post}', [PostController::class, 'update']);
     Route::delete('/posts/{post}', [PostController::class, 'destroy']);
 });
